@@ -20,9 +20,10 @@ client.connect(err => {
 
     app.post('/addProducts', (req, res) => {
         const product = req.body;
+        console.log(req.body);
         products.insertOne(product)
         .then(result=>{
-            console.log(result);
+           res.send(result.acknowledged)
         })
     })
 
