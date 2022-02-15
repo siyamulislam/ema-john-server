@@ -29,6 +29,12 @@ client.connect(err => {
         //    res.send(result.acknowledged)
         // })
     })
+    app.get('/products', (req, res) => {
+        productsCollections.find({})
+        .toArray((err,documents)=>{
+            res.send(documents)
+        })
+    })
 
     console.log('db connected');
 });
