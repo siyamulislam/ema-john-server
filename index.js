@@ -30,9 +30,15 @@ client.connect(err => {
         // })
     })
     app.get('/products', (req, res) => {
-        productsCollections.find({})
+        productsCollections.find({}).limit(20)
         .toArray((err,documents)=>{
             res.send(documents)
+        })
+    })
+    app.get('/product/:key', (req, res) => {
+        productsCollections.find({key:req.params.key})
+        .toArray((err,documents)=>{
+            res.send(documents[0])
         })
     })
 
