@@ -16,15 +16,18 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clu
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect(err => {
-    const products = client.db("emaJhonDB").collection("products");
-
+    const productsCollections = client.db("emaJhonDB").collection("products");
     app.post('/addProducts', (req, res) => {
-        const product = req.body;
-        console.log(req.body);
-        products.insertOne(product)
+        const products = req.body;
+        productsCollections.insertMany(products)
         .then(result=>{
-           res.send(result.acknowledged)
+            console.log(result);
+            res.send(result.acknowledged)
         })
+        // productsCollections.insertOne(product)
+        // .then(result=>{
+        //    res.send(result.acknowledged)
+        // })
     })
 
     console.log('db connected');
