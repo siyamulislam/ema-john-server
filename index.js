@@ -29,18 +29,21 @@ client.connect(err => {
         //    res.send(result.acknowledged)
         // })
     })
+    //to show products on Shop.js
     app.get('/products', (req, res) => {
         productsCollections.find({}).limit(20)
             .toArray((err, documents) => {
                 res.send(documents)
             })
     })
+     //to show products on ReviewItem.js
     app.get('/product/:key', (req, res) => {
         productsCollections.find({ key: req.params.key })
             .toArray((err, documents) => {
                 res.send(documents[0])
             })
     })
+     //to show products on Review.js and Shop.js
     app.post('/productsByKey', (req, res) => {
         const productKeys = req.body;
         productsCollections.find({ key: { $in: productKeys } })
@@ -48,6 +51,7 @@ client.connect(err => {
                 res.send(documents);
             })
     })
+     //to process product order on Shipment.js
     app.post('/addOrder', (req, res) => {
         const order = req.body;
         ordersCollections.insertOne(order)
@@ -59,7 +63,6 @@ client.connect(err => {
 
     console.log('db connected');
 });
-
 
 app.get('/', (req, res) => {
     res.send("Hlw NODE JS");
