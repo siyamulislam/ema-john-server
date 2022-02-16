@@ -17,6 +17,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 client.connect(err => {
     const productsCollections = client.db("emaJhonDB").collection("products");
+    const ordersCollections = client.db("emaJhonDB").collection("orders");
     app.post('/addProducts', (req, res) => {
         const products = req.body;
         productsCollections.insertMany(products)
@@ -47,6 +48,14 @@ client.connect(err => {
         .toArray((err,documents)=>{
             res.send(documents); 
         })  
+    })
+    app.post('/addOrder', (req, res) => {
+        const order = req.body;
+        ordersCollections.insertOne(order)
+        .then(result=>{
+            console.log(result);
+            res.send(result.acknowledged)
+        })
     })
 
     console.log('db connected');
