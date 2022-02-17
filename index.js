@@ -63,7 +63,7 @@ client.connect(err => {
 
     console.log('db connected');
 });
-
+//deploy at https://powerful-castle-25731.herokuapp.com/products
 app.get('/', (req, res) => {
     res.send("Hlw NODE JS");
 })
