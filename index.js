@@ -31,7 +31,9 @@ client.connect(err => {
     })
     //to show products on Shop.js
     app.get('/products', (req, res) => {
-        productsCollections.find({}).limit(20)
+        const search=req.query.search;
+        console.log(search);
+        productsCollections.find({name:  RegExp(search)}).limit(20)
             .toArray((err, documents) => {
                 res.send(documents)
             })
